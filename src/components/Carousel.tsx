@@ -1,9 +1,7 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Carousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  console.log("activeIndex ::", activeIndex);
 
   const imgArr = [
     {
@@ -28,8 +26,6 @@ export default function Carousel() {
     },
   ];
 
-  console.log(imgArr.length);
-
   const clickNext = (ev: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     ev.stopPropagation();
     if (activeIndex === imgArr.length - 1) {
@@ -52,25 +48,29 @@ export default function Carousel() {
     ev: React.MouseEvent<HTMLLabelElement, MouseEvent>,
     id: number
   ) => {
-    console.log("눌림");
     ev.stopPropagation();
     setActiveIndex(id);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex(() =>
-        activeIndex === imgArr.length - 1 ? 0 : activeIndex + 1
-      );
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [activeIndex]);
-
+  /**
+   * 현재 index에 따라 classname에 active 붙여주는 함수
+   * id : img의 id
+   */
   const indexClassName = (id: number) => {
     return id === activeIndex
       ? "carousel__img-box-active"
       : "carousel__img-box";
   };
+
+  // 5초뒤에 이미지의 index +1 해주기
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex(() =>
+        activeIndex === imgArr.length - 1 ? 0 : activeIndex + 1
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [activeIndex]);
 
   return (
     <>
