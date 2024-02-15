@@ -1,11 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel";
+import { useState } from "react";
 
 interface PostListProps {
   hasNavigation?: boolean;
 }
 
+type TabType = "all" | "my";
+
 export default function PostList({ hasNavigation = true }: PostListProps) {
+  const [activeTab, setActiveTab] = useState<TabType>("all");
   const navigate = useNavigate();
 
   const clickToDetail = (index: number) => {
@@ -15,8 +19,20 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
     <>
       {hasNavigation && (
         <div className="post__navigation">
-          <div className="post__navigation--active">전체</div>
-          <div>나의 글</div>
+          <div
+            role="presentation"
+            className={activeTab === "all" ? "post__navigation--active" : ""}
+            onClick={() => setActiveTab("all")}
+          >
+            전체
+          </div>
+          <div
+            role="presentation"
+            className={activeTab === "my" ? "post__navigation--active" : ""}
+            onClick={() => setActiveTab("my")}
+          >
+            나의 글
+          </div>
         </div>
       )}
       <div className="post__list">
