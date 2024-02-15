@@ -1,5 +1,6 @@
 import { SVGProps } from "react";
 import * as icon from "assets/icons/index";
+import "styles/Icon.style.css";
 
 type IconNameType = keyof typeof icon;
 
@@ -20,7 +21,6 @@ export default function Icon({
   ...rest
 }: IconProps) {
   const SVGIcon = icon[name];
-  console.log(size);
 
   return (
     <SVGIcon

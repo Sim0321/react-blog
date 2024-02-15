@@ -1,0 +1,30 @@
+/* post__detail */
+.post__detail {
+  min-height: 90vh;
+  padding: 20px 40px;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 24px;
+}
+
+.post__detail .post__title {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.post__detail .post__utils-box {
+  padding: 10px 0;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  flex-direction: row;
+}
+
+.post__detail .post__profile-box {
+  padding: 10px 0;
+}
+
+.post__detail .post__text {
+  padding: 20px 0;
+}

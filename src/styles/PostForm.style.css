@@ -1,0 +1,123 @@
+/* form */
+.form {
+  margin: 0 auto;
+  max-width: 680px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.form input {
+  padding: 10px;
+  box-sizing: border-box;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  width: 100%;
+  max-width: 680px;
+  outline: none;
+}
+
+.form textarea {
+  height: 400px;
+  padding: 10px;
+  line-height: 1.5;
+  font-size: 16px;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  width: 100%;
+  max-width: 680px;
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.form .form__block {
+  margin-top: 20px;
+  width: 100%;
+  position: relative;
+}
+
+.form .title {
+  font-weight: 600;
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  padding: 5px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.form .form__file-img {
+  display: block;
+  position: relative !important;
+  width: 96%;
+  height: 400px;
+  padding: 20px 10px 10px 10px;
+  background: url(../assets//png//preview.png) no-repeat center/200px;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+.form__reupload {
+  display: flex;
+  max-width: 90px;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  cursor: pointer;
+  width: auto;
+  margin-bottom: 5px;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out, background 0.3s ease-in-out,
+    border 0.3s ease-in-out;
+}
+.form__reupload svg,
+.form__reupload path {
+  transition: all 0.3s ease-in-out;
+}
+.form__reupload:hover {
+  background-color: lightgray;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.form__reupload:hover svg,
+.form__reupload:hover path {
+  stroke: #fff;
+}
+
+.form__carousel {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.3rem;
+  padding-top: 20px;
+  border: 1px solid lightgray;
+  overflow: hidden;
+}
+
+.form .form__file {
+  display: none;
+}
+
+.form__file-text {
+  font-size: 13px;
+  color: red;
+  margin: 3px 0;
+}
+
+.form .form__btn--submit {
+  width: 100%;
+  height: 48px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #2563eb;
+  color: white;
+}
+
+.form .form__btn--submit:hover,
+.form .form__btn--submit:focus {
+  background-color: #1945a4;
+}

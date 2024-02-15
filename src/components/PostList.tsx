@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel";
 import { useState } from "react";
+import "styles/PostList.style.css";
 
 interface PostListProps {
   hasNavigation?: boolean;
