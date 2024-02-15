@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Icon from "./Icon";
 import Carousel from "./Carousel";
-import "styles/PostForm.style.css";
+import "../styles/components/PostForm.style.css";
 
 interface ImageProps {
   url: string;

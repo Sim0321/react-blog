@@ -1,6 +1,6 @@
 import { SVGProps } from "react";
 import * as icon from "assets/icons/index";
-import "styles/Icon.style.css";
+import "../styles/components/Icon.style.css";
 
 type IconNameType = keyof typeof icon;
 

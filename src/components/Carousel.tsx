@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "styles/Carousel.style.css";
+import "../styles/components/Carousel.style.css";
 import Icon from "./Icon";
 
 const imgArr = [

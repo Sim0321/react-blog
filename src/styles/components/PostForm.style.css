@@ -54,7 +54,7 @@
   width: 96%;
   height: 400px;
   padding: 20px 10px 10px 10px;
-  background: url(../assets//png//preview.png) no-repeat center/200px;
+  background: url(../../assets/png/preview.png) no-repeat center/200px;
   border-radius: 0.3rem;
   border: 1px solid lightgray;
   cursor: pointer;
