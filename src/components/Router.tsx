@@ -13,6 +13,7 @@ interface RouterProps {
 }
 
 export default function Router({ isAuthEnticated }: RouterProps) {
+  console.log(isAuthEnticated);
   return (
     <Routes>
       {isAuthEnticated ? (
@@ -23,8 +24,6 @@ export default function Router({ isAuthEnticated }: RouterProps) {
           <Route path="/posts/create" element={<PostCreate />} />
           <Route path="/posts/edit/:id" element={<PostEdit />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </>
       ) : (

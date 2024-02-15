@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/components/Form.style.css";
 import { useState } from "react";
 import { app } from "firebaseApp";
