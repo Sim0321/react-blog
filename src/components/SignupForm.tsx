@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { app } from "firebaseApp";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
+import Loading from "./Loading";
 
 interface InfoState {
   email: string;
@@ -14,6 +15,7 @@ export default function SignupForm() {
   // 2. input을 ref로
   // 3. 비밀번호 암호화(hash)
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [signupInfo, setSignupInfo] = useState<InfoState>({
     email: "",
@@ -67,6 +69,7 @@ export default function SignupForm() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const auth = getAuth(app);
       await createUserWithEmailAndPassword(
@@ -81,10 +84,13 @@ export default function SignupForm() {
         password_confirm: "",
       });
     } catch (error: any) {
-      // console.log(error);
       toast.error(error?.code);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loading />;
 
   return (
     <form onSubmit={onSubmit} className="form form--lg">
@@ -98,6 +104,7 @@ export default function SignupForm() {
           required
           onChange={onChange}
           autoComplete="off"
+          value={signupInfo.email}
         />
       </div>
       <div className="form__block">
@@ -109,6 +116,7 @@ export default function SignupForm() {
           required
           onChange={onChange}
           autoComplete="off"
+          value={signupInfo.password}
         />
       </div>
 
@@ -121,6 +129,7 @@ export default function SignupForm() {
           required
           onChange={onChange}
           autoComplete="off"
+          value={signupInfo.password_confirm}
         />
       </div>
       {error && error?.length > 0 && (

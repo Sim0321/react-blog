@@ -1,0 +1,23 @@
+.loading__wrap {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loading__wrap svg {
+  animation: spin 1.5s linear infinite;
+}
+
+.loading__wrap path {
+  fill: lightgray;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
