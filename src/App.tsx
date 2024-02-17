@@ -18,6 +18,17 @@ function App() {
     !!auth?.currentUser
   );
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthEnticated(true);
+      } else {
+        setIsAuthEnticated(false);
+      }
+      setInit(true);
+    });
+  }, [auth]);
+
   return (
     <>
       <ToastContainer />

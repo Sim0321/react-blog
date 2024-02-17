@@ -7,8 +7,7 @@ import { useContext } from "react";
 
 export default function Profile() {
   // const auth = getAuth(app);
-  // const { user } = useContext(AuthContext);
-  // console.log(user);
+  const { user } = useContext(AuthContext);
 
   const onsignOut = async () => {
     try {
@@ -25,11 +24,10 @@ export default function Profile() {
       <div className="flex__box-lg">
         <div className="profile__image" />
         <div>
-          {/* <div className="profile__email">{auth?.currentUser?.email}</div>
+          <div className="profile__email">{user?.email}</div>
           <div className="profile__name">
-            {auth?.currentUser?.displayName ||
-              auth?.currentUser?.email?.split("@")[0]}
-          </div> */}
+            {user?.displayName || user?.email?.split("@")[0]}
+          </div>
         </div>
       </div>
       <div role="presentation" className="profile__logout" onClick={onsignOut}>

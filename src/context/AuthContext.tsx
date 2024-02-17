@@ -1,6 +1,5 @@
-import { createContext } from "vm";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { User, getAuth, onAuthStateChanged } from "firebase/auth";
-import { ReactNode, useEffect, useState } from "react";
 import { app } from "firebaseApp";
 
 interface AuthProps {
