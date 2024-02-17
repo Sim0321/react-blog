@@ -12,6 +12,8 @@ interface LoginState {
 }
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [loginInfo, setLoginInfo] = useState<LoginState>({
@@ -60,6 +62,7 @@ export default function LoginForm() {
         email: "",
         password: "",
       });
+      navigate("/");
     } catch (error: any) {
       toast.error(error?.code);
     } finally {
