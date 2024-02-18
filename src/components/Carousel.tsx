@@ -2,37 +2,8 @@ import { useEffect, useState } from "react";
 import "../styles/components/Carousel.style.css";
 import Icon from "./Icon";
 
-const imgArr = [
-  {
-    url: "https://images.unsplash.com/photo-1706539214505-5cb21db70d12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcwNzY1OTg1Mw&ixlib=rb-4.0.3&q=80&w=1080",
-    id: 0,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    id: 1,
-  },
-  {
-    url: "https://plus.unsplash.com/premium_photo-1667340456421-e39b77a25217?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcwNzY1OTkwMg&ixlib=rb-4.0.3&q=80&w=1080",
-    id: 2,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1606117331085-5760e3b58520?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    id: 3,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1704975986930-0c09f513c985?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcwNzY2MDY5Mw&ixlib=rb-4.0.3&q=80&w=1080",
-    id: 4,
-  },
-];
-
-// interface ImageProps {
-//   url: string;
-//   id: number;
-// }
-
 interface CarouselProps {
-  // imgList?: ImageProps[] | File[];
-  imgList?: File[] | string[];
+  imgList: File[] | string[];
   auto?: boolean;
 }
 
@@ -81,7 +52,6 @@ export default function Carousel({ imgList, auto = true }: CarouselProps) {
     if (auto) {
       const interval = setInterval(() => {
         if (imgList) {
-          console.log("imgList 있음");
           setActiveIndex(() =>
             activeIndex === imgList.length - 1 ? 0 : activeIndex + 1
           );

@@ -80,7 +80,8 @@ export default function PostForm() {
         summary: formDataInfo.summary,
         content: formDataInfo.content,
         imgUrl: responseUrls,
-        createAt: new Date().toLocaleString(),
+        // createAt: new Date().toLocaleString(),
+        createAt: `${new Date()}`, // dayjs로 몇분 전 사용하기 위해 형식 변경
         email: user?.email,
       });
       toast.success("게시글을 생성했습니다.");

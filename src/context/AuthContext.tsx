@@ -17,7 +17,6 @@ const AuthContext = createContext({
 export const AuthContextProvider = ({ children }: AuthProps) => {
   const auth = getAuth(app);
   const [currentUser, setCurrentUser] = useState<CustomUser | null>(null);
-  console.log(currentUser);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

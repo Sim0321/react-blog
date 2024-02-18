@@ -7,10 +7,18 @@ import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import { Link } from "react-router-dom";
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
+
+dayjs.locale("ko");
+dayjs.extend(relativeTime);
+
 interface PostListProps {
   hasNavigation?: boolean;
 }
 
+const testTime = new Date();
 interface PostState {
   id: string;
   title: string;
@@ -27,6 +35,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const [posts, setPosts] = useState<PostState[]>([]);
+  console.log(posts);
 
   const { user } = useContext(AuthContext);
 
@@ -46,6 +55,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
   useEffect(() => {
     getPosts();
   }, []);
+
   return (
     <>
       {hasNavigation && (
@@ -68,7 +78,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
       )}
       <div className="post__list">
         {posts?.length > 0 ? (
-          posts.map((post) => (
+          posts.reverse().map((post) => (
             <div
               key={post.id}
               className="post__box"
@@ -100,8 +110,10 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
               </div>
 
               <div className="post__info-box">
-                <div className="post__date">{post.createAt}</div>·
-                <div className="post__comment">0개의 댓글</div>
+                <div className="post__date">
+                  {dayjs(post.createAt).fromNow()}
+                </div>
+                ·<div className="post__comment">0개의 댓글</div>
               </div>
             </div>
           ))
