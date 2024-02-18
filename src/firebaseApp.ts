@@ -1,5 +1,6 @@
 import { initializeApp, FirebaseApp, getApp } from "firebase/app";
 import "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // 지역변수로 선언후 try,catch로 할당
 export let app: FirebaseApp;
@@ -22,5 +23,8 @@ try {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+
+// Initiallize Cloud Firestore and get a reference to the service
+export const db = getFirestore(app);
 
 export default firebase;

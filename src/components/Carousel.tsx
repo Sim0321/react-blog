@@ -25,25 +25,24 @@ const imgArr = [
   },
 ];
 
-interface ImageProps {
-  url: string;
-  id: number;
-}
+// interface ImageProps {
+//   url: string;
+//   id: number;
+// }
 
 interface CarouselProps {
-  imgList?: ImageProps[];
+  // imgList?: ImageProps[] | File[];
+  imgList?: File[];
   auto?: boolean;
 }
 
-export default function Carousel({
-  imgList = imgArr,
-  auto = true,
-}: CarouselProps) {
+export default function Carousel({ imgList, auto = true }: CarouselProps) {
+  // console.log(imgList);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const clickNext = (ev: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     ev.stopPropagation();
-    if (activeIndex === imgList.length - 1) {
+    if (imgList && activeIndex === imgList.length - 1) {
       setActiveIndex(0);
     } else {
       setActiveIndex(activeIndex + 1);
@@ -52,7 +51,7 @@ export default function Carousel({
 
   const clickPrev = (ev: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     ev.stopPropagation();
-    if (activeIndex === 0) {
+    if (imgList && activeIndex === 0) {
       setActiveIndex(imgList.length - 1);
     } else {
       setActiveIndex(activeIndex - 1);
@@ -81,9 +80,12 @@ export default function Carousel({
   useEffect(() => {
     if (auto) {
       const interval = setInterval(() => {
-        setActiveIndex(() =>
-          activeIndex === imgList.length - 1 ? 0 : activeIndex + 1
-        );
+        if (imgList) {
+          console.log("imgList 있음");
+          setActiveIndex(() =>
+            activeIndex === imgList.length - 1 ? 0 : activeIndex + 1
+          );
+        }
       }, 5000);
       return () => clearInterval(interval);
     }
@@ -108,23 +110,25 @@ export default function Carousel({
         </div>
 
         <div className="carousel__img">
-          {imgList.map((img) => (
-            <div className={indexClassName(img.id)} key={img.id}>
-              <img src={img.url} alt={`img-${img.id}`} />
-            </div>
-          ))}
+          {imgList &&
+            imgList.map((img, i) => (
+              <div className={indexClassName(i)} key={i}>
+                <img src={URL.createObjectURL(img)} alt={`img-${i}`} />
+              </div>
+            ))}
         </div>
 
         <div className="carousel__dots">
-          {imgList.map((el) => (
-            <label
-              key={el.id}
-              onClick={(ev) => clickDot(ev, el.id)}
-              className={
-                activeIndex === el.id ? "carousel__dot-active" : "carousel__dot"
-              }
-            ></label>
-          ))}
+          {imgList &&
+            imgList.map((el, i) => (
+              <label
+                key={i}
+                onClick={(ev) => clickDot(ev, i)}
+                className={
+                  activeIndex === i ? "carousel__dot-active" : "carousel__dot"
+                }
+              ></label>
+            ))}
         </div>
       </div>
     </>
