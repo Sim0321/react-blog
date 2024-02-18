@@ -37,6 +37,7 @@
 .post__box {
   padding: 18px 0 18px 0;
   border-bottom: 1px solid #f2f2f2;
+  cursor: pointer;
 }
 .post__box:last-child {
   border-bottom: 0px;
@@ -124,4 +125,12 @@
 .post__edit a {
   text-decoration: none;
   color: gray;
+}
+
+.post__no-post {
+  padding: 24px;
+  text-align: center;
+  color: gray;
+  border: 1px solid #f2f2f2;
+  border-radius: 20px;
 }

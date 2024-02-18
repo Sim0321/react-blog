@@ -32,7 +32,7 @@ const imgArr = [
 
 interface CarouselProps {
   // imgList?: ImageProps[] | File[];
-  imgList?: File[];
+  imgList?: File[] | string[];
   auto?: boolean;
 }
 
@@ -113,7 +113,10 @@ export default function Carousel({ imgList, auto = true }: CarouselProps) {
           {imgList &&
             imgList.map((img, i) => (
               <div className={indexClassName(i)} key={i}>
-                <img src={URL.createObjectURL(img)} alt={`img-${i}`} />
+                <img
+                  src={typeof img === "string" ? img : URL.createObjectURL(img)}
+                  alt={`img-${i}`}
+                />
               </div>
             ))}
         </div>

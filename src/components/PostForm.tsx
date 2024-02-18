@@ -70,13 +70,10 @@ export default function PostForm() {
         const percent = Math.round(((i + 1) / imgList.length) * 100);
         setProgress(percent);
       } catch (error) {
-        // console.error(`이미지 ${i} 업로드 중 오류 발생:`, error);
         toast.error("이미지 업로드가 실패했습니다.");
       }
     }
 
-    // setFormDataInfo({ ...formDataInfo, imgUrl: responseUrls });
-    // console.log(formDataInfo);
     try {
       await addDoc(collection(db, "posts"), {
         title: formDataInfo.title,
@@ -104,7 +101,6 @@ export default function PostForm() {
 
   return (
     <form onSubmit={onSubmit} className="form">
-      progress :::{progress}
       <div className="form__block">
         <span className="title">제목</span>
         <input
@@ -113,6 +109,7 @@ export default function PostForm() {
           id="title"
           onChange={onChange}
           value={formDataInfo.title}
+          required
         />
       </div>
       <div className="form__block">
@@ -123,6 +120,7 @@ export default function PostForm() {
           id="summary"
           onChange={onChange}
           value={formDataInfo.summary}
+          required
         />
       </div>
       <div className="form__block">
@@ -130,7 +128,7 @@ export default function PostForm() {
         <textarea
           name="content"
           id="content"
-          // required
+          required
           onChange={onChange}
           value={formDataInfo.content}
         />
