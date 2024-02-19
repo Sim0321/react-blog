@@ -4,10 +4,14 @@ import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
 import { toast } from "react-toastify";
 import { useContext } from "react";
+import Avatar from "../assets/png/profile.png";
 
 export default function Profile() {
   // const auth = getAuth(app);
   const { user } = useContext(AuthContext);
+  console.log(user);
+
+  // console.log(user);
 
   const onsignOut = async () => {
     try {
@@ -22,7 +26,12 @@ export default function Profile() {
   return (
     <div className="profile__box">
       <div className="flex__box-lg">
-        <div className="profile__image" />
+        <div className="profile__image">
+          <img
+            src={user?.photoURL ? user?.photoURL : Avatar}
+            alt="profile-img"
+          />
+        </div>
         <div>
           <div className="profile__email">{user?.email}</div>
           <div className="profile__name">

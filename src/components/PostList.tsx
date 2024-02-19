@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import { Link } from "react-router-dom";
+import Avatar from "../assets/png/profile.png";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -86,7 +87,12 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
             >
               <div className="post__meta-box">
                 <div className="post__profile-box">
-                  <div className="post__profile-img"></div>
+                  <div className="post__profile-img">
+                    <img
+                      src={user?.photoURL ? user?.photoURL : Avatar}
+                      alt="profile-img"
+                    />
+                  </div>
                   <div className="post__author-name">{post.email}</div>
                 </div>
                 {post.email === user?.email && (

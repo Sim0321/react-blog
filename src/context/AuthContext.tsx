@@ -6,22 +6,17 @@ interface AuthProps {
   children: ReactNode;
 }
 
-interface CustomUser extends User {
-  profileImg: string;
-}
-
 const AuthContext = createContext({
   user: null as User | null,
 });
 
 export const AuthContextProvider = ({ children }: AuthProps) => {
   const auth = getAuth(app);
-  const [currentUser, setCurrentUser] = useState<CustomUser | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const newUser = { ...user, profileImg: "임시 img" };
-        setCurrentUser(newUser);
+        setCurrentUser(user);
       } else {
         setCurrentUser(user);
       }

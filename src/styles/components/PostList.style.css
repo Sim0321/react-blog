@@ -99,6 +99,13 @@
   height: 36px;
   background-color: #f2f2f2;
   border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #f2f2f2;
+}
+
+.post__profile-img img {
+  width: 100%;
+  height: 100%;
 }
 
 .post__info-box {
