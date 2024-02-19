@@ -28,3 +28,7 @@
 .post__detail .post__text {
   padding: 20px 0;
 }
+
+.post__text--pre-wrap {
+  white-space: pre-wrap;
+}

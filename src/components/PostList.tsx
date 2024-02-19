@@ -7,6 +7,7 @@ import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import { Link } from "react-router-dom";
 import Avatar from "../assets/png/profile.png";
+import { PostState } from "interface";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -19,29 +20,19 @@ interface PostListProps {
   hasNavigation?: boolean;
 }
 
-const testTime = new Date();
-interface PostState {
-  id: string;
-  title: string;
-  summary: string;
-  content: string;
-  createAt: string;
-  email: string;
-  imgUrl: string[] | [];
-}
-
 type TabType = "all" | "my";
 
 export default function PostList({ hasNavigation = true }: PostListProps) {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const [posts, setPosts] = useState<PostState[]>([]);
-  console.log(posts);
 
   const { user } = useContext(AuthContext);
 
   const clickToDetail = (id: string) => {
-    navigate(`/posts/${id}`);
+    if (id) {
+      navigate(`/posts/${id}`);
+    }
   };
 
   const getPosts = async () => {
@@ -79,50 +70,52 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
       )}
       <div className="post__list">
         {posts?.length > 0 ? (
-          posts.reverse().map((post) => (
-            <div
-              key={post.id}
-              className="post__box"
-              onClick={() => clickToDetail(post.id)}
-            >
-              <div className="post__meta-box">
-                <div className="post__profile-box">
-                  <div className="post__profile-img">
-                    <img
-                      src={user?.photoURL ? user?.photoURL : Avatar}
-                      alt="profile-img"
-                    />
-                  </div>
-                  <div className="post__author-name">{post.email}</div>
-                </div>
-                {post.email === user?.email && (
-                  <div className="post__utils-box">
-                    <div className="post__delete">삭제</div>
-                    <div className="post__edit">
-                      <Link to={`/posts/edit/${post.id}`}>수정</Link>
+          posts
+            .sort((a, b) => (a.createAt > b.createAt ? -1 : 1))
+            .map((post: PostState) => (
+              <div
+                key={post.id}
+                className="post__box"
+                onClick={() => post.id && clickToDetail(post.id)}
+              >
+                <div className="post__meta-box">
+                  <div className="post__profile-box">
+                    <div className="post__profile-img">
+                      <img
+                        src={user?.photoURL ? user?.photoURL : Avatar}
+                        alt="profile-img"
+                      />
                     </div>
+                    <div className="post__author-name">{post.email}</div>
+                  </div>
+                  {post.email === user?.email && (
+                    <div className="post__utils-box">
+                      <div className="post__delete">삭제</div>
+                      <div className="post__edit">
+                        <Link to={`/posts/edit/${post.id}`}>수정</Link>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {post.imgUrl.length > 0 && (
+                  <div className="post__img">
+                    <Carousel imgList={post.imgUrl} />
                   </div>
                 )}
-              </div>
-              {post.imgUrl.length > 0 && (
-                <div className="post__img">
-                  <Carousel imgList={post.imgUrl} />
+                <div className="post__title">{post.title}</div>
+                <div className="post__text">{post.summary}</div>
+                <div className="post__category">
+                  <span>category</span>
                 </div>
-              )}
-              <div className="post__title">{post.title}</div>
-              <div className="post__text">{post.summary}</div>
-              <div className="post__category">
-                <span>category</span>
-              </div>
 
-              <div className="post__info-box">
-                <div className="post__date">
-                  {dayjs(post.createAt).fromNow()}
+                <div className="post__info-box">
+                  <div className="post__date">
+                    {dayjs(post.createAt).fromNow()}
+                  </div>
+                  ·<div className="post__comment">0개의 댓글</div>
                 </div>
-                ·<div className="post__comment">0개의 댓글</div>
               </div>
-            </div>
-          ))
+            ))
         ) : (
           <div className="post__no-post">게시글이 없습니다.</div>
         )}

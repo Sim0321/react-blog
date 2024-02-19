@@ -51,7 +51,9 @@ export default function PostForm() {
   const uploadImage = async (imgList: File[]) => {
     const formData = new FormData();
     const responseUrls: string[] = [];
-    setIsUploading(true);
+    if (imgList.length !== 0) {
+      setIsUploading(true);
+    }
 
     for (let i = 0; i < imgList.length; i++) {
       formData.append(`file`, imgList[i]);
@@ -84,9 +86,9 @@ export default function PostForm() {
         createAt: `${new Date()}`, // dayjs로 몇분 전 사용하기 위해 형식 변경
         email: user?.email,
       });
+      setIsUploading(false);
       toast.success("게시글을 생성했습니다.");
       navigate("/");
-      setIsUploading(false);
     } catch (error: any) {
       console.log(error);
       toast.error(error?.code);
