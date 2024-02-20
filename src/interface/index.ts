@@ -6,4 +6,6 @@ export interface PostState {
   createAt: string;
   email: string;
   imgUrl: string[] | [];
+  updatedAt?: string;
+  uid: string;
 }

@@ -5,7 +5,6 @@ import "../styles/components/PostList.style.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
-import { Link } from "react-router-dom";
 import Avatar from "../assets/png/profile.png";
 import { PostState } from "interface";
 
@@ -29,10 +28,17 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
 
   const { user } = useContext(AuthContext);
 
-  const clickToDetail = (id: string) => {
+  const clickToDetail = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+    console.log("detail로 눌ㄹ미");
+    e.stopPropagation();
     if (id) {
       navigate(`/posts/${id}`);
     }
+  };
+
+  const clickEdit = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+    e.stopPropagation();
+    navigate(`/posts/edit/${id}`);
   };
 
   const getPosts = async () => {
@@ -76,7 +82,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
               <div
                 key={post.id}
                 className="post__box"
-                onClick={() => post.id && clickToDetail(post.id)}
+                onClick={(e) => post.id && clickToDetail(e, post.id)}
               >
                 <div className="post__meta-box">
                   <div className="post__profile-box">
@@ -91,8 +97,11 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                   {post.email === user?.email && (
                     <div className="post__utils-box">
                       <div className="post__delete">삭제</div>
-                      <div className="post__edit">
-                        <Link to={`/posts/edit/${post.id}`}>수정</Link>
+                      <div
+                        className="post__edit"
+                        onClick={(e) => post.id && clickEdit(e, post.id)}
+                      >
+                        수정
                       </div>
                     </div>
                   )}

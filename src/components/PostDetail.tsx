@@ -11,6 +11,7 @@ import Loading from "./Loading";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
+import Carousel from "./Carousel";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -49,7 +50,24 @@ export default function PostDetail() {
       <div className="post__detail">
         {post ? (
           <div className="post__box">
+            <div className="post__utils-box">
+              <div
+                className="post__delete"
+                role="presentation"
+                onClick={handleDelete}
+              >
+                삭제
+              </div>
+              <div className="post__edit">
+                <Link to={`/posts/edit/${post.id}`}>수정</Link>
+              </div>
+            </div>
             <div className="post__title">{post?.title}</div>
+            {post.imgUrl.length > 0 && (
+              <div className="post__img">
+                <Carousel imgList={post.imgUrl} />
+              </div>
+            )}
             <div className="post__profile-box">
               <div className="post__profile-img">
                 <img
@@ -60,18 +78,7 @@ export default function PostDetail() {
               <div className="post__author-name">test@naver.com</div>
               <div className="post__date">{dayjs(post.createAt).fromNow()}</div>
             </div>
-            <div className="post__utils-box">
-              <div
-                className="post__delete"
-                role="presentation"
-                onClick={handleDelete}
-              >
-                삭제
-              </div>
-              <div className="post__edit">
-                <Link to={`/posts/edit/1`}>수정</Link>
-              </div>
-            </div>
+
             <div className="post__text post__text--pre-wrap">
               {post.content}
             </div>

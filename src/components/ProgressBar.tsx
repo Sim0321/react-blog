@@ -4,7 +4,6 @@ interface ProgressBarProps {
   progress: number;
 }
 export default function ProgressBar({ progress }: ProgressBarProps) {
-  console.log(progress);
   return (
     <div className="progress__wrap">
       업로드 중입니다..

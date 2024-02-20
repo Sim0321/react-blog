@@ -8,7 +8,6 @@ interface CarouselProps {
 }
 
 export default function Carousel({ imgList, auto = true }: CarouselProps) {
-  // console.log(imgList);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const clickNext = (ev: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
