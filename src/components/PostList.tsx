@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel";
 import { useContext, useEffect, useState } from "react";
 import "../styles/components/PostList.style.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import Avatar from "../assets/png/profile.png";
@@ -11,6 +11,7 @@ import { PostState } from "interface";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
+import { toast } from "react-toastify";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -30,7 +31,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
 
   const clickToDetail = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
     console.log("detail로 눌ㄹ미");
-    e.stopPropagation();
+    // e.stopPropagation();
     if (id) {
       navigate(`/posts/${id}`);
     }
@@ -41,9 +42,24 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
     navigate(`/posts/edit/${id}`);
   };
 
+  const handleDelete = async (
+    e: React.MouseEvent<HTMLDivElement>,
+    id: string
+  ) => {
+    e.stopPropagation();
+
+    const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
+
+    if (confirm && id) {
+      await deleteDoc(doc(db, "posts", id));
+      toast.success("게시글을 삭제했습니다.");
+      getPosts(); //변경된 post 리스트 가져오기
+    }
+  };
+
   const getPosts = async () => {
     const datas = await getDocs(collection(db, "posts"));
-
+    setPosts([]);
     datas?.forEach((doc) => {
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostState]);
@@ -96,7 +112,13 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                   </div>
                   {post.email === user?.email && (
                     <div className="post__utils-box">
-                      <div className="post__delete">삭제</div>
+                      <div
+                        className="post__delete"
+                        role="presentation"
+                        onClick={(e) => post.id && handleDelete(e, post.id)}
+                      >
+                        삭제
+                      </div>
                       <div
                         className="post__edit"
                         onClick={(e) => post.id && clickEdit(e, post.id)}
