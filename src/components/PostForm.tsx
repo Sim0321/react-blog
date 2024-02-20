@@ -29,7 +29,6 @@ export default function PostForm() {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // const [imgList, setImgList] = useState<File[]>([]);
   const [formDataInfo, setFormDataInfo] = useState<FormState>({
     title: "",
     summary: "",
@@ -53,14 +52,11 @@ export default function PostForm() {
     if (files && files.length > 5) {
       toast.warn("사진은 최대 5장까지입니다.");
     } else if (files) {
-      // setImgList([...files]);
       setFormDataInfo({ ...formDataInfo, imgUrl: [...files] });
     }
   };
 
   const uploadImage = async (imgList: File[] | string[]) => {
-    // console.log("imgList ::", typeof imgList[0]);
-
     const formData = new FormData();
     const responseUrls: string[] = [];
 
@@ -91,32 +87,7 @@ export default function PostForm() {
           toast.error("이미지 업로드가 실패했습니다.");
         }
       }
-    } else {
-      console.log("string입니다. 등록안해도되요");
     }
-
-    // if (formDataInfo.imgUrl.length !== 0) {
-    //   for (let i = 0; i < imgList.length; i++) {
-    //     formData.append(`file`, imgList[i]);
-    //     formData.append("upload_preset", "knexfrv5");
-
-    //     try {
-    //       const response = await fetch(
-    //         `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
-    //         {
-    //           method: "POST",
-    //           body: formData,
-    //         }
-    //       );
-    //       const responseData = await response.json();
-    //       responseUrls.push(responseData.url);
-    //       const percent = Math.round(((i + 1) / imgList.length) * 100);
-    //       setProgress(percent);
-    //     } catch (error) {
-    //       toast.error("이미지 업로드가 실패했습니다.");
-    //     }
-    //   }
-    // }
 
     try {
       if (post && post.id) {
@@ -140,7 +111,11 @@ export default function PostForm() {
           summary: formDataInfo.summary,
           content: formDataInfo.content,
           imgUrl: responseUrls,
-          // createAt: new Date().toLocaleString(),
+          // createAt: new Date().toLocaleString("ko", {
+          //   hour: "2-digit",
+          //   minute: "2-digit",
+          //   second: "2-digit",
+          // }),
           createAt: `${new Date()}`, // dayjs로 몇분 전 사용하기 위해 형식 변경
           email: user?.email,
           uid: user?.uid,

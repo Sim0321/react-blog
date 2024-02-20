@@ -2,7 +2,15 @@ import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel";
 import { useContext, useEffect, useState } from "react";
 import "../styles/components/PostList.style.css";
-import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import Avatar from "../assets/png/profile.png";
@@ -18,13 +26,17 @@ dayjs.extend(relativeTime);
 
 interface PostListProps {
   hasNavigation?: boolean;
+  defaultTab?: TabType;
 }
 
 type TabType = "all" | "my";
 
-export default function PostList({ hasNavigation = true }: PostListProps) {
+export default function PostList({
+  hasNavigation = true,
+  defaultTab = "all",
+}: PostListProps) {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<TabType>("all");
+  const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
   const [posts, setPosts] = useState<PostState[]>([]);
 
   const { user } = useContext(AuthContext);
@@ -58,9 +70,27 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
   };
 
   const getPosts = async () => {
-    const datas = await getDocs(collection(db, "posts"));
-    setPosts([]);
+    setPosts([]); // posts 초기화
+
+    const postsRef = collection(db, "posts");
+    // const datas = await getDocs(collection(db, "posts"));
+    let postsQuery;
+
+    // 만약 firestore의 orderby를 하고 싶다면 이런식으로
+    // const postsRef = collection(db, "posts");
+    // const postsQuery = query(postsRef, orderBy("createdAt", "asc"));
+    // const queryData = await getDocs(postsQuery);
+
+    if (activeTab === "my" && user) {
+      // 나의 글만 필터링
+      postsQuery = query(postsRef, where("uid", "==", user.uid));
+    } else {
+      // 모든 글 보여주기
+      postsQuery = postsRef;
+    }
+    const datas = await getDocs(postsQuery);
     datas?.forEach((doc) => {
+      console.log(doc);
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostState]);
     });
@@ -68,7 +98,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [activeTab]);
 
   return (
     <>
