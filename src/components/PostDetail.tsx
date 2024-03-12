@@ -3,7 +3,7 @@ import "../styles/components/PostDetail.style.css";
 import Avatar from "../assets/png/profile.png";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "context/AuthContext";
-import { PostState } from "interface";
+import { PostState } from "type";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import Loading from "./Loading";
@@ -73,6 +73,11 @@ export default function PostDetail() {
               </div>
             </div>
             <div className="post__title">{post?.title}</div>
+            {post?.category && (
+              <div className="post__category">
+                <span>{post?.category}</span>
+              </div>
+            )}
             {post.imgUrl.length > 0 && (
               <div className="post__img">
                 <Carousel imgList={post.imgUrl} />

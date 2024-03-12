@@ -14,19 +14,20 @@ import {
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import Avatar from "../assets/png/profile.png";
-import { PostState } from "interface";
+import { CategoryType, PostState } from "type";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import { toast } from "react-toastify";
+import { CATEGORIES } from "constant";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
 interface PostListProps {
   hasNavigation?: boolean;
-  defaultTab?: TabType;
+  defaultTab?: TabType | CategoryType;
 }
 
 type TabType = "all" | "my";
@@ -36,7 +37,9 @@ export default function PostList({
   defaultTab = "all",
 }: PostListProps) {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
+  const [activeTab, setActiveTab] = useState<TabType | CategoryType>(
+    defaultTab
+  );
   const [posts, setPosts] = useState<PostState[]>([]);
 
   const { user } = useContext(AuthContext);
@@ -84,13 +87,17 @@ export default function PostList({
     if (activeTab === "my" && user) {
       // 나의 글만 필터링
       postsQuery = query(postsRef, where("uid", "==", user.uid));
-    } else {
+    } else if (activeTab === "all") {
       // 모든 글 보여주기
       postsQuery = postsRef;
+    } else {
+      postsQuery = query(postsRef, where("category", "==", activeTab));
     }
+
     const datas = await getDocs(postsQuery);
+    console.log("datas ::", datas);
     datas?.forEach((doc) => {
-      console.log(doc);
+      // console.log(doc);
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostState]);
     });
@@ -118,6 +125,18 @@ export default function PostList({
           >
             나의 글
           </div>
+          {CATEGORIES?.map((category) => (
+            <div
+              key={category}
+              role="presentation"
+              className={
+                activeTab === category ? "post__navigation--active" : ""
+              }
+              onClick={() => setActiveTab(category)}
+            >
+              {category}
+            </div>
+          ))}
         </div>
       )}
       <div className="post__list">
@@ -166,7 +185,7 @@ export default function PostList({
                 <div className="post__title">{post.title}</div>
                 <div className="post__text">{post.summary}</div>
                 <div className="post__category">
-                  <span>category</span>
+                  {post.category && <span>{post.category}</span>}
                 </div>
 
                 <div className="post__info-box">

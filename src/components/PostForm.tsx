@@ -8,13 +8,15 @@ import AuthContext from "context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import ProgressBar from "./ProgressBar";
-import { PostState } from "interface";
+import { CategoryType, PostState } from "type";
 import Loading from "./Loading";
+import { CATEGORIES } from "constant";
 
 interface FormState {
   title: string;
   summary: string;
   content: string;
+  category?: CategoryType | string;
   imgUrl: string[] | File[];
 }
 
@@ -32,12 +34,15 @@ export default function PostForm() {
   const [formDataInfo, setFormDataInfo] = useState<FormState>({
     title: "",
     summary: "",
+    category: "",
     content: "",
     imgUrl: [],
   });
 
   const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const {
       target: { name, value },
@@ -100,6 +105,7 @@ export default function PostForm() {
           imgUrl:
             typeof imgList[0] === "object" ? responseUrls : formDataInfo.imgUrl,
           updatedAt: `${new Date()}`,
+          category: formDataInfo.category,
         });
         setIsUploading(false);
         toast.success("게시글을 수정했습니다.");
@@ -117,6 +123,7 @@ export default function PostForm() {
           //   second: "2-digit",
           // }),
           createAt: `${new Date()}`, // dayjs로 몇분 전 사용하기 위해 형식 변경
+          category: formDataInfo.category,
           email: user?.email,
           uid: user?.uid,
         });
@@ -162,6 +169,7 @@ export default function PostForm() {
         summary: post.summary,
         content: post.content,
         imgUrl: post.imgUrl,
+        category: post.category,
       });
     }
   }, [post]);
@@ -200,6 +208,22 @@ export default function PostForm() {
           value={formDataInfo.title}
           required
         />
+      </div>
+      <div className="form__block">
+        <span className="title">카테고리</span>
+        <select
+          name="category"
+          id="category"
+          onChange={onChange}
+          defaultValue={formDataInfo.category}
+        >
+          <option value="">카테고리를 선택해주세요</option>
+          {CATEGORIES?.map((category) => (
+            <option value={category} key={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="form__block">
         <span className="title">요약</span>

@@ -1,3 +1,5 @@
+export type CategoryType = "Frontend" | "Backend" | "Web" | "Native";
+
 export interface PostState {
   id?: string;
   title: string;
@@ -8,4 +10,5 @@ export interface PostState {
   imgUrl: string[] | [];
   updatedAt?: string;
   uid: string;
+  category?: CategoryType;
 }

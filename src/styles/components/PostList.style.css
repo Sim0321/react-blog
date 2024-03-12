@@ -49,6 +49,7 @@
   flex-direction: row-reverse;
   font-size: 14px;
   color: gray;
+  /* background-color: skyblue; */
 }
 
 .post__img {

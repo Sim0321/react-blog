@@ -16,9 +16,20 @@
 
 .post__detail .post__utils-box {
   padding: 10px 0;
-  border-top: 1px solid #f2f2f2;
+  /* border-top: 1px solid #f2f2f2; */
   border-bottom: 1px solid #f2f2f2;
   flex-direction: row;
+  /* background-color: pink; */
+}
+
+.post__detail .post__category span {
+  /* background-color: pink; */
+  color: gray;
+  border: 1px solid lightgray;
+  background-color: #f2f2f2;
+  padding: 0px 4px;
+  border-radius: 10px;
+  font-size: 12px;
 }
 
 .post__detail .post__profile-box {
