@@ -13,6 +13,103 @@ code {
     monospace;
 }
 
+/* dark Mode */
+.white {
+  transition: all 0.25s linear;
+  background-color: white;
+}
+
+.dark {
+  transition: all 0.25s linear;
+  background-color: #1e2937;
+}
+
+.dark .form__block .title {
+  color: white;
+  background-color: #1e2937;
+}
+
+.dark .form__link {
+  color: lightgray;
+}
+
+.dark span,
+.dark .form__block {
+  color: white;
+}
+
+.dark a,
+.dark .form label,
+.dark .post__delete,
+.dark .profile__logout,
+.dark .form__title,
+.dark .post__navigation--active,
+.dark .post__author-name,
+.dark .header__theme-btn,
+.dark .profile__name,
+.dark .post__title,
+.dark .post__text,
+.dark .post__category,
+.dark .form__block .title,
+.dark select,
+.dark .post__info-box {
+  color: white;
+}
+
+.dark input,
+.dark textarea,
+select {
+  background-color: transparent;
+  color: white;
+}
+
+.dark option {
+  color: black;
+}
+
+.dark .post__category span {
+  color: black;
+}
+
+.dark .post__navigation {
+  color: lightgray;
+}
+
+.dark .profile__email {
+  color: white;
+}
+
+.dark .header__logo {
+  color: white;
+}
+
+.dark footer a {
+  color: black;
+}
+
+.dark a:hover,
+.dark a:focus {
+  color: lightgray;
+}
+
+.dark .form__error {
+  color: #ff6a71;
+}
+
+.dark .post__edit,
+.dark .post__delete {
+  color: lightgray;
+}
+
+.dark .post__edit:hover,
+.dark .post__delete:hover {
+  color: white;
+}
+
+.dark .progress__wrap {
+  color: white;
+}
+
 /* .login__wrapper {
   width: 100vw;
   height: 90vh;

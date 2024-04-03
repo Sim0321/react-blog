@@ -45,7 +45,7 @@ export default function PostList({
   const { user } = useContext(AuthContext);
 
   const clickToDetail = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
-    console.log("detail로 눌ㄹ미");
+    // console.log("detail로 눌ㄹ미");
     // e.stopPropagation();
     if (id) {
       navigate(`/posts/${id}`);
@@ -95,7 +95,7 @@ export default function PostList({
     }
 
     const datas = await getDocs(postsQuery);
-    console.log("datas ::", datas);
+    // console.log("datas ::", datas);
     datas?.forEach((doc) => {
       // console.log(doc);
       const dataObj = { ...doc.data(), id: doc.id };
