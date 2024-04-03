@@ -61,7 +61,7 @@ export default function PostForm() {
     }
   };
 
-  const uploadImage = async (imgList: File[] | string[]) => {
+  const uploadPostWithImage = async (imgList: File[] | string[]) => {
     const formData = new FormData();
     const responseUrls: string[] = [];
 
@@ -138,7 +138,7 @@ export default function PostForm() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await uploadImage(formDataInfo.imgUrl);
+    await uploadPostWithImage(formDataInfo.imgUrl);
   };
 
   const getPost = async (id: string) => {
