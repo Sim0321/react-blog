@@ -60,7 +60,7 @@ code {
 .dark textarea,
 select {
   background-color: transparent;
-  color: white;
+  color: black;
 }
 
 .dark option {
