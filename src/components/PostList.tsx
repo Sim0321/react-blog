@@ -95,13 +95,53 @@ export default function PostList({
     }
 
     const datas = await getDocs(postsQuery);
-    // console.log("datas ::", datas);
+    console.log("datas ::", datas);
     datas?.forEach((doc) => {
       // console.log(doc);
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostState]);
     });
   };
+
+  // const getPosts = async () => {
+  //   // posts 초기화
+  //   setPosts([]);
+  //   let postsRef = collection(db, "posts");
+
+  //   console.log("postsRef ::", postsRef);
+  //   let postsQuery;
+
+  //   if (activeTab === "my" && user) {
+  //     console.log("나만");
+  //     // 나의 글만 필터링
+  //     postsQuery = query(
+  //       postsRef,
+  //       where("uid", "==", user.uid),
+  //       orderBy("createdAt", "asc")
+  //     );
+  //   } else if (activeTab === "all") {
+  //     console.log("전체");
+  //     // 모든 글 보여주기
+  //     postsQuery = query(postsRef, orderBy("createdAt", "asc"));
+  //   } else {
+  //     // 카테고리 글 보여주기
+  //     postsQuery = query(
+  //       postsRef,
+  //       where("category", "==", activeTab),
+  //       orderBy("createdAt", "asc")
+  //     );
+  //   }
+  //   const datas = await getDocs(postsQuery);
+  //   console.log("datas ::", datas);
+  //   datas?.forEach((doc) => {
+  //     console.log(doc);
+  //     const dataObj = { ...doc.data(), id: doc.id };
+
+  //     setPosts((prev) => [...prev, dataObj as PostState]);
+  //   });
+  // };
+
+  console.log(posts);
 
   useEffect(() => {
     getPosts();

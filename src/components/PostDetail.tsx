@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "../styles/components/PostDetail.style.css";
+import "styles/components/PostDetail.style.css";
 import Avatar from "../assets/png/profile.png";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "context/AuthContext";
@@ -13,6 +13,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import Carousel from "./Carousel";
 import { toast } from "react-toastify";
+import Comments from "./Comments";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -28,7 +29,7 @@ export default function PostDetail() {
     if (id) {
       const docRef = doc(db, "posts", id);
       const docSnap = await getDoc(docRef);
-      console.log(docSnap.data());
+      // console.log(docSnap.data());
 
       setPost({
         id: docSnap.id,
@@ -97,6 +98,7 @@ export default function PostDetail() {
             <div className="post__text post__text--pre-wrap">
               {post.content}
             </div>
+            <Comments />
           </div>
         ) : (
           <Loading />
