@@ -95,7 +95,7 @@ export default function PostList({
     }
 
     const datas = await getDocs(postsQuery);
-    console.log("datas ::", datas);
+    // console.log("datas ::", datas);
     datas?.forEach((doc) => {
       // console.log(doc);
       const dataObj = { ...doc.data(), id: doc.id };
@@ -141,7 +141,7 @@ export default function PostList({
   //   });
   // };
 
-  console.log(posts);
+  // console.log(posts);
 
   useEffect(() => {
     getPosts();
