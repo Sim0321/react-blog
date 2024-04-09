@@ -6,22 +6,14 @@ import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import { toast } from "react-toastify";
 
-const COMENTS = [
-  { id: 1, email: "email~~~", content: "content", createdAt: "2023-04-05" },
-  { id: 2, email: "email~~~", content: "content", createdAt: "2023-04-05" },
-  { id: 3, email: "email~~~", content: "content", createdAt: "2023-04-05" },
-  { id: 4, email: "email~~~", content: "content", createdAt: "2023-04-05" },
-  { id: 5, email: "email~~~", content: "content", createdAt: "2023-04-05" },
-  { id: 6, email: "email~~~", content: "content", createdAt: "2023-04-05" },
-];
-
 interface CommentsProps {
   post: PostState;
+  getPost: (id: string) => Promise<void>;
 }
 
-export default function Comments({ post }: CommentsProps) {
-  console.log(post);
+export default function Comments({ post, getPost }: CommentsProps) {
   const [comment, setComment] = useState<string>("");
+
   const { user } = useContext(AuthContext);
 
   const onChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -59,6 +51,9 @@ export default function Comments({ post }: CommentsProps) {
               second: "2-digit",
             }),
           });
+
+          // 문서 업데이트
+          await getPost(post.id);
         }
       }
 
@@ -79,6 +74,7 @@ export default function Comments({ post }: CommentsProps) {
             id="comment"
             required
             onChange={onChangeComment}
+            value={comment}
           ></textarea>
         </div>
         <div className="form__block form__block-reverse">
@@ -86,16 +82,19 @@ export default function Comments({ post }: CommentsProps) {
         </div>
       </form>
       <div className="comments__list">
-        {COMENTS?.map((comment) => (
-          <div key={comment.id} className="comment__box">
-            <div className="comment__profile-box">
-              <div className="comment__email">{comment.email}</div>
-              <div className="comment__createdAt">{comment.createdAt}</div>
-              <div className="comment__delete">삭제</div>
+        {post.comments
+          ?.slice(0)
+          .reverse()
+          .map((comment) => (
+            <div key={comment.createdAt} className="comment__box">
+              <div className="comment__profile-box">
+                <div className="comment__email">{comment.email}</div>
+                <div className="comment__createdAt">{comment.createdAt}</div>
+                <div className="comment__delete">삭제</div>
+              </div>
+              <div className="comment__text">{comment.content}</div>
             </div>
-            <div className="comment__text">{comment.content}</div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
