@@ -52,7 +52,11 @@ code {
 .dark .post__category,
 .dark .form__block .title,
 .dark select,
-.dark .post__info-box {
+.dark .post__info-box,
+.dark .post__date,
+.dark .comment__email,
+.dark .comment__createdAt,
+.dark .comment__text {
   color: white;
 }
 
