@@ -34,3 +34,9 @@
 > - [로그인 후 새로고침 이슈](https://github.com/Sim0321/react-blog/wiki/%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%9B%84-%EC%83%88%EB%A1%9C%EA%B3%A0%EC%B9%A8-%EC%9D%B4%EC%8A%88)
 > - [게시글 이미지 생성](https://github.com/Sim0321/react-blog/wiki/%EA%B2%8C%EC%8B%9C%EA%B8%80-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%83%9D%EC%84%B1)
 > - [캐러셀 공통 컴포넌트 이슈](https://github.com/Sim0321/react-blog/wiki/%EC%BA%90%EB%9F%AC%EC%85%80-%EA%B3%B5%ED%86%B5-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9D%B4%EC%8A%88)
+
+## 에러
+
+1. firebase cli 사용 중 `firebase login`했지만 `Error: Failed to list Firebase projects. See firebase-debug.log for more info.` 에러 발생.
+
+- `firebase login --reauth`로 재로그인 후 `firebase projects:list`로 firebase 프로젝트들 불러오기.
